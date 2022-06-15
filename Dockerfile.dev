@@ -1,0 +1,14 @@
+FROM elixir:latest
+
+WORKDIR /app
+
+COPY . .
+
+RUN mix local.hex --force && \
+    mix local.rebar --force
+
+RUN mix deps.get
+RUN mix deps.compile
+RUN mix compile --warnings-as-errors
+
+CMD ["sh", "scripts/entrypoint.dev.sh"]

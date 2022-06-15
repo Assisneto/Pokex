@@ -1,10 +1,13 @@
 version: "3"
 services:
-  phoenix:
+  app:
     build:
       context: .
+      dockerfile: Dockerfile.dev
     volumes:
       - ".:/app"
+      - deps_cache:/app/deps
+      - build_cache:/app/_build
     ports:
       - "4000:4000"
     depends_on:
@@ -23,3 +26,6 @@ services:
       - "5432:5432"
     volumes:
       - ./postgres/data:/var/lib/postgresql/data
+volumes:
+  deps_cache:
+  build_cache:
