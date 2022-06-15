@@ -4,7 +4,7 @@ import Config
 config :pokex, Pokex.Repo,
   username: "postgres",
   password: "postgres",
-  hostname: "localhost",
+  hostname: "db",
   database: "pokex_dev",
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,

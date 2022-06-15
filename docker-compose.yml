@@ -1,0 +1,25 @@
+version: "3"
+services:
+  phoenix:
+    build:
+      context: .
+    volumes:
+      - ".:/app"
+    ports:
+      - "4000:4000"
+    depends_on:
+      - db
+    environment:
+      DATABASE_HOST: db
+      DATABASE_PASSWORD: postgres
+      DATABASE_USERNAME: postgres
+      DATABASE_DB: pokex_dev
+  db:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_USER: "postgres"
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgres/data:/var/lib/postgresql/data
