@@ -2,9 +2,9 @@ import Config
 
 # Configure your database
 config :pokex, Pokex.Repo,
-  username: "postgres",
-  password: "postgres",
-  hostname: "db",
+  username: System.get_env("POSTGRES_USER", "postgres"),
+  password: System.get_env("POSTGRES_PASSWORD", "postgres"),
+  hostname: System.get_env("POSTGRES_HOST", "localhost"),
   database: "pokex_dev",
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
@@ -19,7 +19,7 @@ config :pokex, Pokex.Repo,
 config :pokex, PokexWeb.Endpoint,
   # Binding to loopback ipv4 address prevents access from other machines.
   # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.
-  http: [ip: {0, 0, 0, 0}, port: 4000],
+  http: [ip: {0, 0, 0, 0}, port: System.get_env("PORT", "4000")],
   check_origin: false,
   code_reloader: true,
   debug_errors: true,
