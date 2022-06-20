@@ -17,19 +17,19 @@ defmodule Pokex.Trainer do
 
   @required_params [:name, :password]
 
-  def build(params) do
-    params
-    |> changeset()
-    |> apply_action(:insert)
-  end
+  def build(params),
+    do:
+      params
+      |> changeset()
+      |> apply_action(:insert)
 
-  def changeset(params) do
-    %__MODULE__{}
-    |> cast(params, @required_params)
-    |> validate_required(@required_params)
-    |> validate_length(:password, min: 6)
-    |> put_pass_hash()
-  end
+  def changeset(params),
+    do:
+      %__MODULE__{}
+      |> cast(params, @required_params)
+      |> validate_required(@required_params)
+      |> validate_length(:password, min: 6)
+      |> put_pass_hash()
 
   defp put_pass_hash(%Ecto.Changeset{valid?: true, changes: %{password: password}} = changeset),
     do: change(changeset, Argon2.add_hash(password))
