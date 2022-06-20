@@ -7,6 +7,8 @@ defmodule PokexWeb.Router do
 
   scope "/api", PokexWeb do
     pipe_through :api
+
+    resources "/trainers", TrainersController, only: [:create, :show, :delete, :update]
   end
 
   # Enables LiveDashboard only for development
