@@ -1,6 +1,8 @@
 defmodule PokexWeb.TrainersController do
   use PokexWeb, :controller
 
+  action_fallback PokexWeb.FallbackController
+
   def create(conn, params),
     do:
       params
@@ -12,4 +14,6 @@ defmodule PokexWeb.TrainersController do
       conn
       |> put_status(:created)
       |> render("create.json", trainer: trainer)
+
+  defp handle_response({:error, _changeset} = error, _conn), do: error
 end
