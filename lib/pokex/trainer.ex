@@ -24,8 +24,14 @@ defmodule Pokex.Trainer do
       |> apply_action(:insert)
 
   def changeset(params),
+    do: create_changeset(%__MODULE__{}, params)
+
+  def changeset(trainer, params),
+    do: create_changeset(trainer, params)
+
+  defp create_changeset(%__MODULE__{} = trainer, params),
     do:
-      %__MODULE__{}
+      trainer
       |> cast(params, @required_params)
       |> validate_required(@required_params)
       |> validate_length(:password, min: 6)
