@@ -1,6 +1,6 @@
 defmodule Pokex.Trainer.Delete do
   @moduledoc """
-  Module of create trainers
+  Module of Delete trainers
   """
   alias Pokex.{Repo, Trainer}
   alias Ecto.UUID
