@@ -29,6 +29,12 @@ defmodule PokexWeb.TrainersController do
       |> Pokex.fetch_trainer()
       |> handle_response(conn, "show.json", :ok)
 
+  def update(conn, params),
+    do:
+      params
+      |> Pokex.update_trainer()
+      |> handle_response(conn, "update.json", :ok)
+
   defp handle_response({:ok, trainer}, conn, view, status),
     do:
       conn

@@ -19,4 +19,17 @@ defmodule PokexWeb.TrainersView do
       name: name,
       inserted_at: inserted_at
     }
+
+  def render("update.json", %{
+        trainer: %Trainer{id: id, name: name, inserted_at: inserted_at, updated_at: updated_at}
+      }),
+      do: %{
+        message: "Update",
+        trainer: %{
+          id: id,
+          name: name,
+          inserted_at: inserted_at,
+          updated_at: updated_at
+        }
+      }
 end
