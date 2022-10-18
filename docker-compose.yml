@@ -1,5 +1,23 @@
-version: "3"
+version: '3.9'
+
 services:
+  db:
+    image: postgres:14.1-alpine
+    command: postgres -c 'max_connections=200'
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_USER: "postgres"
+      PGUSER: "postgres"
+    ports:
+      - 5432:5432
+    volumes:
+      - ./db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
   app:
     build:
       context: .
@@ -7,30 +25,17 @@ services:
     environment:
       MIX_ENV: dev
       POSTGRES_HOST: db
-      RABBITMQ_URI: amqp://guest:guest@rabbitmq:5672
-    volumes:
-      - ".:/app"
-      - deps_cache:/app/deps
-      - build_cache:/app/_build
     ports:
       - "4000:4000"
+    links:
+      - "db"
     depends_on:
-      - db
-    environment:
-      DATABASE_HOST: localhost
-      DATABASE_PASSWORD: postgres
-      DATABASE_USERNAME: postgres
-      DATABASE_DB: pokex_dev
-  db:
-    image: postgres
-    environment:
-      POSTGRES_PASSWORD: "postgres"
-      POSTGRES_USER: "postgres"
-      PGUSER: "postgres"
-    ports:
-      - "5432:5432"
+      db:
+        condition: service_healthy
     volumes:
-      - ./postgres/data:/var/lib/postgresql/data
+      - .:/app
+      - deps_cache:/app/deps
+      - build_cache:/app/_build
 volumes:
   deps_cache:
   build_cache:
