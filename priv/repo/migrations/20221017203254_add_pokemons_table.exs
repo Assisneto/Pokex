@@ -7,7 +7,7 @@ defmodule Pokex.Repo.Migrations.AddPokemonsTable do
       add :name, :string
       add :nickname, :string
       add :weight, :integer
-      add :type, {:array, :string}
+      add :types, {:array, :string}
       add :trainer_id, references(:trainers, type: :uuid, on_delete: :delete_all), null: false
       timestamps()
     end

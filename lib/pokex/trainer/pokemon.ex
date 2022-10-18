@@ -10,7 +10,7 @@ defmodule Pokex.Trainer.Pokemon do
 
   @foreign_key_type Ecto.UUID
 
-  alias ExMon.Trainer
+  alias Pokex.Trainer
 
   schema "pokemons" do
     field :name, :string
@@ -34,5 +34,6 @@ defmodule Pokex.Trainer.Pokemon do
       %__MODULE__{}
       |> cast(params, @required)
       |> validate_required(@required)
+      |> assoc_constraint(:trainer)
       |> validate_length(:nickname, min: 2)
 end
