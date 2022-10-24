@@ -22,6 +22,7 @@ defmodule Pokex.Trainer.Pokemon do
   end
 
   @required [:name, :nickname, :weight, :types, :trainer_id]
+  @update_required [:nickname]
 
   def build(params),
     do:
@@ -35,5 +36,12 @@ defmodule Pokex.Trainer.Pokemon do
       |> cast(params, @required)
       |> validate_required(@required)
       |> assoc_constraint(:trainer)
+      |> validate_length(:nickname, min: 2)
+
+  def update_changeset(pokemon, params),
+    do:
+      pokemon
+      |> cast(params, @update_required)
+      |> validate_required(@update_required)
       |> validate_length(:nickname, min: 2)
 end

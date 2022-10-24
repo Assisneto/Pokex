@@ -15,6 +15,12 @@ defmodule PokexWeb.TrainerPokemonsController do
       |> Pokex.delete_trainer_pokemon()
       |> handle_delete(conn)
 
+  def show(conn, %{"id" => id}),
+    do: id |> Pokex.fetch_trainer_pokemon() |> handle_response(conn, "show.json", :ok)
+
+  def update(conn, params),
+    do: params |> Pokex.update_trainer_pokemon() |> handle_response(conn, "update.json", :ok)
+
   defp handle_delete({:ok, _pokemon}, conn),
     do:
       conn
