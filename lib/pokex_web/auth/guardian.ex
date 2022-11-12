@@ -1,5 +1,5 @@
 defmodule PokexWeb.Auth.Guardian do
-  use Guardian, otp_app: :PokexWeb
+  use Guardian, otp_app: :pokex
 
   def subject_for_token(%{id: id}, _claims) do
     sub = to_string(id)

@@ -34,13 +34,13 @@ config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
 
+config :pokex, PokexWeb.Auth.Guardian,
+  issuer: "pokex",
+  secret_key: "hA1bEuXm7xUW00+0dt1gUYGKx+FdQEaeBfrLn7foshK/6ItuhVl2+Pf83KHb8COF"
+
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{config_env()}.exs"
-
-config :pokex, PokexWeb.Auth.Guardian,
-  issuer: "pokex",
-  secret_key: "Mk7dNY1vAyGc6ftKbNqIhTF33C9aliUN0G7x0Z75Mzd/+2G0pyeeQLf75h14Yof0"

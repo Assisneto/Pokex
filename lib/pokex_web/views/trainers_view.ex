@@ -3,15 +3,19 @@ defmodule PokexWeb.TrainersView do
 
   alias Pokex.Trainer
 
-  def render("create.json", %{trainer: %Trainer{id: id, name: name, inserted_at: inserted_at}}),
-    do: %{
-      message: "Created",
-      trainer: %{
-        id: id,
-        name: name,
-        inserted_at: inserted_at
+  def render(
+        "create.json",
+        %{trainer: %Trainer{id: id, name: name, inserted_at: inserted_at}, token: token}
+      ),
+      do: %{
+        message: "Created",
+        trainer: %{
+          id: id,
+          name: name,
+          inserted_at: inserted_at
+        },
+        token: token
       }
-    }
 
   def render("show.json", %{trainer: %Trainer{id: id, name: name, inserted_at: inserted_at}}),
     do: %{

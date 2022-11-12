@@ -1,13 +1,18 @@
 defmodule PokexWeb.TrainersController do
   use PokexWeb, :controller
 
+  alias PokexWeb.Auth.Guardian
+
   action_fallback PokexWeb.FallbackController
 
-  def create(conn, params),
-    do:
-      params
-      |> Pokex.create_trainer()
-      |> handle_response(conn, "create.json", :created)
+  def create(conn, params) do
+    with {:ok, trainer} <- Pokex.create_trainer(params),
+         {:ok, token, _claim} <- Guardian.encode_and_sign(trainer) do
+      conn
+      |> put_status(:created)
+      |> render("create.json", %{trainer: trainer, token: token})
+    end
+  end
 
   def delete(conn, %{"id" => id}),
     do:
