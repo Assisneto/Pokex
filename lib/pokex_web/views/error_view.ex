@@ -20,6 +20,9 @@ defmodule PokexWeb.ErrorView do
 
   def render("400.json", %{result: result}), do: %{message: result}
 
+  def render("401.json", %{message: message}),
+    do: %{message: message}
+
   defp translate_errors(changeset),
     do:
       traverse_errors(changeset, fn {msg, opts} ->

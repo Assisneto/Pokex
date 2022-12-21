@@ -40,6 +40,14 @@ defmodule PokexWeb.TrainersController do
       |> Pokex.update_trainer()
       |> handle_response(conn, "update.json", :ok)
 
+  def sign_in(conn, params) do
+    with {:ok, token} <- Guardian.authenticate(params) do
+      conn
+      |> put_status(:ok)
+      |> render("sign_in.json", token: token)
+    end
+  end
+
   defp handle_response({:ok, trainer}, conn, view, status),
     do:
       conn

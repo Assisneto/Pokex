@@ -36,4 +36,9 @@ defmodule PokexWeb.TrainersView do
           updated_at: updated_at
         }
       }
+
+  def render("sign_in.json", %{token: token}),
+    do: %{
+      message: token
+    }
 end

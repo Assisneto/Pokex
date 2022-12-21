@@ -8,6 +8,13 @@ defmodule PokexWeb.FallbackController do
       |> put_view(PokexWeb.ErrorView)
       |> render("400.json", result: message)
 
+  def call(conn, {:error, :unauthorized}),
+    do:
+      conn
+      |> put_status(:unauthorized)
+      |> put_view(PokexWeb.ErrorView)
+      |> render("401.json", message: "Trainer unauthorized")
+
   def call(conn, {:error, result}),
     do:
       conn
